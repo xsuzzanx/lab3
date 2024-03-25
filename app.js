@@ -4,6 +4,14 @@ const PORT = 3000;
 
 app.use(bodyParser.urlencoded({extended: true}));
 
+app.use((req,res,next)=>{
+    const method = req.method;
+    const url = req.url;
+    const date = new Date();
+    console.log(`Request ${method} on path ${url} ${date}`);
+    next();
+})
+
 //home endpoint
 app.get('/home', (req,res)=>{
     res.title = "HOME";
@@ -16,6 +24,9 @@ app.get('/home', (req,res)=>{
         </head>
         <body>
             <p>${res.body}</p>
+            <a href="/add-student">Add Student </a>
+            <a href="/students"> Student </a>
+
         </body> 
     </html>      
     `);
@@ -40,6 +51,7 @@ app.post('/student', (req,res)=>{
         </head>
         <body>
             <p>${res.body}</p>
+            <a href="/home">Add Home </a>
         </body> 
     </html>      
     `);
@@ -71,6 +83,9 @@ app.get('/add-student', (req,res)=>{
         </head>
         <body>
             <p>${res.body}</p>
+            <a href="/students"> Student </a>
+            <a href="/home">Add Home </a>
+
         </body> 
     </html>      
     `);
