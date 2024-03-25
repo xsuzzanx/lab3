@@ -1,0 +1,12 @@
+.nav-link{
+    color: blue;
+    text-decoration: none;
+}
+
+nav ul{
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}

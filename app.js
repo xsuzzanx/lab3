@@ -4,6 +4,8 @@ const PORT = 3000;
 
 app.use(bodyParser.urlencoded({extended: true}));
 
+app.use(express.static(path.join(_dirname, 'public')));
+
 app.use((req,res,next)=>{
     const method = req.method;
     const url = req.url;
