@@ -59,6 +59,8 @@ app.post('/student', (req,res)=>{
     `);
 });
 
+
+
 // add-student endpoint
 app.get('/add-student', (req,res)=>{
     res.title = "ADD-STUDENT";
@@ -93,6 +95,13 @@ app.get('/add-student', (req,res)=>{
     `);
 });
 
+app.post('/add-student', (req,res)=>{
+    const{name, surname, studies} = req.body;
+    students.push({name,surname,studies});
+    res.redirect('/students');
+
+});
+
 app.get('/students', (req, res) => {
     res.title = 'Students';
     const studentList = students.map((student, index)=>{
@@ -111,6 +120,38 @@ app.get('/students', (req, res) => {
         </body>
         </html>
     `);
+});
+
+app.get('/students',(req,res)=>{
+    res.send(`
+    <html>
+        <head>
+         <title>Students</title>
+         <link rel="stylesheet" type="text/css" href="/css/main.css">
+        </head>
+        <body>
+            <h1>Students</h1>
+            <nav>
+                <ul>
+                    <li><a href="home" class="nav-link">Home</a></li>
+                    <li><a href="/students" class="nav-link">Student</a></li>
+                    <li><a href="/add-student" class="nav-link">Add Studenta</a></li>
+                </ul>
+            </nav>
+            <ul>
+             ${students.map(student=> `<li>${student.name} ${student.surname} - ${student.studies}</li>`).join}
+            </ul>
+        </body>
+    </html>
+    `);         
+});
+
+//delete students
+
+app.delete('/delete-student/:id', (req,res)=>{
+    const { id } = req.params;
+    students = students.filter((student,index)=> index !== parseInt(id) );
+    res.redirect('/students');
 });
 
 app.listen(PORT,()=>{
