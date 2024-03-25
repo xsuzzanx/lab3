@@ -2,6 +2,8 @@ const express = require('express');
 const app= express();
 const PORT = 3000;
 
+app.use(bodyParser.urlencoded({extended: true}));
+
 //home endpoint
 app.get('/home', (req,res)=>{
     res.title = "HOME";
